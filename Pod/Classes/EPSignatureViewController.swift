@@ -28,11 +28,11 @@ open class EPSignatureViewController: UIViewController {
     
     // MARK: - Public Vars
     
-    open var showsDate: Bool = true
-    open var showsSaveSignatureOption: Bool = true
-    open weak var signatureDelegate: EPSignatureDelegate?
-    open var subtitleText = "Sign Here"
-    open var tintColor = UIColor.defaultTintColor()
+    @objc open var showsDate: Bool = true
+    @objc open var showsSaveSignatureOption: Bool = true
+    @objc open weak var signatureDelegate: EPSignatureDelegate?
+    @objc open var subtitleText = "Sign Here"
+    @objc open var tintColor = UIColor.defaultTintColor()
 
     // MARK: - Life cycle methods
     
@@ -79,15 +79,15 @@ open class EPSignatureViewController: UIViewController {
     
     // MARK: - Initializers
     
-    public convenience init(signatureDelegate: EPSignatureDelegate) {
+    @objc public convenience init(signatureDelegate: EPSignatureDelegate) {
         self.init(signatureDelegate: signatureDelegate, showsDate: true, showsSaveSignatureOption: true)
     }
     
-    public convenience init(signatureDelegate: EPSignatureDelegate, showsDate: Bool) {
+    @objc public convenience init(signatureDelegate: EPSignatureDelegate, showsDate: Bool) {
         self.init(signatureDelegate: signatureDelegate, showsDate: showsDate, showsSaveSignatureOption: true)
     }
     
-    public init(signatureDelegate: EPSignatureDelegate, showsDate: Bool, showsSaveSignatureOption: Bool ) {
+    @objc public init(signatureDelegate: EPSignatureDelegate, showsDate: Bool, showsSaveSignatureOption: Bool ) {
         self.showsDate = showsDate
         self.showsSaveSignatureOption = showsSaveSignatureOption
         self.signatureDelegate = signatureDelegate
@@ -101,12 +101,12 @@ open class EPSignatureViewController: UIViewController {
     
     // MARK: - Button Actions
     
-    func onTouchCancelButton() {
+    @objc func onTouchCancelButton() {
         signatureDelegate?.epSignature!(self, didCancel: NSError(domain: "EPSignatureDomain", code: 1, userInfo: [NSLocalizedDescriptionKey:"User not signed"]))
         dismiss(animated: true, completion: nil)
     }
 
-    func onTouchDoneButton() {
+    @objc func onTouchDoneButton() {
         if let signature = signatureView.getSignatureAsImage() {
             if switchSaveSignature.isOn {
                 let docPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first
@@ -120,7 +120,7 @@ open class EPSignatureViewController: UIViewController {
         }
     }
     
-    func onTouchActionButton(_ barButton: UIBarButtonItem) {
+    @objc func onTouchActionButton(_ barButton: UIBarButtonItem) {
         let action = UIAlertController(title: "Action", message: "", preferredStyle: UIAlertControllerStyle.actionSheet)
         action.view.tintColor = tintColor
         
@@ -142,7 +142,7 @@ open class EPSignatureViewController: UIViewController {
         present(action, animated: true, completion: nil)
     }
 
-    func onTouchClearButton() {
+    @objc func onTouchClearButton() {
         signatureView.clear()
     }
     
